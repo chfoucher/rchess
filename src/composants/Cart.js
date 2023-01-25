@@ -1,11 +1,12 @@
 import React from 'react';
+import '../styles/Cart.css';
 
 function Cart() {
     const prixBegonia = 5;
     const prixRosier = 7;
     const prixTulipes = 12;
     const prixTotal = prixBegonia + prixRosier + prixTulipes;
-    return (<div>
+    return (<div className='lmj-cart'>
     <h2>Panier</h2>
     <ul>
         <li>Bégonia: { prixBegonia } €</li>

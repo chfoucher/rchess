@@ -1,0 +1,14 @@
+div.chess-cell {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    background-color: #ffce9e;  
+}
+div.black {
+    background-color: #d18b47;
+}
+img {
+    width: 60px;
+    height: 60px;
+  }
+  
