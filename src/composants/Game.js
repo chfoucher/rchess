@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState } from 'react';
 import "../styles/Game.css";
 import Cell from './Cell';
 
@@ -10,8 +10,6 @@ const CHEVAL = 5;
 const REINE = 6;
 const NOIR = "noir";
 const BLANC = "blanc";
-const board = initBoard();
-initBoardLayout();
 function initBoard() {
     const board = [];
     let currentBlack = false;
@@ -26,35 +24,48 @@ function initBoard() {
     return board;
 }
 
-function initBoardLayout() {
-    const layout = [TOUR, CHEVAL, FOU, REINE, ROI, FOU, CHEVAL, TOUR];
-    for (var c = 0; c < 8; c++) {
-      board[0][c].piece = { type: layout[c], couleur: NOIR };
-      //ajouteOrigine(NOIR, 0, c);
-      board[1][c].piece = { type: PION, couleur: NOIR };
-      //ajouteOrigine(NOIR, 1, c);
-      board[6][c].piece = { type: PION, couleur: BLANC };
-      //ajouteOrigine(BLANC, 6, c);
-      board[7][c].piece = { type: layout[c], couleur: BLANC };
-      //ajouteOrigine(BLANC, 7, c);
-      for (let r = 2; r < 6; r++) {
-        board[r][c].piece = undefined;
-      }
+function initBoardLayout(board) {
+  const layout = [TOUR, CHEVAL, FOU, REINE, ROI, FOU, CHEVAL, TOUR];
+  const newBoard = [ ...board ];
+  for (var c = 0; c < 8; c++) {
+    newBoard[0][c].piece = { type: layout[c], couleur: NOIR };
+    //ajouteOrigine(NOIR, 0, c);
+    newBoard[1][c].piece = { type: PION, couleur: NOIR };
+    //ajouteOrigine(NOIR, 1, c);
+    newBoard[6][c].piece = { type: PION, couleur: BLANC };
+    //ajouteOrigine(BLANC, 6, c);
+    newBoard[7][c].piece = { type: layout[c], couleur: BLANC };
+    //ajouteOrigine(BLANC, 7, c);
+    for (let r = 2; r < 6; r++) {
+      newBoard[r][c].piece = undefined;
     }
-}
-
-function handleClick(e) {
-    console.log("handleClick", e);
-}
-
-function Row({brow: row}) {
-return (<tr>{ row.map((cell, index) => (
-    <td key={`c-${index}`} onClick={() => handleClick(cell)}><Cell black={cell.black} piece={cell.piece} r={cell.r} c={cell.c}/></td>
-))}</tr>);
+  }
+  return newBoard;
 }
 
 function Game() {
-    return (<div>
+  const [board] = useState(initBoardLayout(initBoard()));
+  const [selection, updateSelection] = useState(null);
+
+  function onClick(e) {
+    if (selection) {
+      board[e.r][e.c].piece = board[selection.r][selection.c].piece;
+      board[selection.r][selection.c].selected = false;
+      board[selection.r][selection.c].piece = null;
+      updateSelection(null);
+
+    } else {
+      updateSelection({ r: e.r, c: e.c });
+      board[e.r][e.c].selected = true;
+    }
+  }
+
+function Row({brow: row}) {
+return (<tr>{ row.map((cell, index) => (
+    <td key={`c-${index}`} onClick={() => onClick(cell)}><Cell black={cell.black} piece={cell.piece} r={cell.r} c={cell.c} selected={cell.selected}/></td>
+))}</tr>);
+}
+  return (<div>
         <table><tbody>
         { board.map((row, index) => (
             <Row key={`r-${index}`} brow={row} />
