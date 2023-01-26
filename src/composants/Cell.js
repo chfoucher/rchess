@@ -34,7 +34,7 @@ function Piece({type, couleur}) {
     return <img src={imgSrc} alt="" />
 }
 function Cell( { black, r, c, selected, piece}) {
-    const cName = 'chess-cell' + (black?' black':'');
+    const cName = 'chess-cell' + (black?' black':'') + (selected?' selected':'');
     return (<div className={cName} >
         { piece && <Piece type={piece.type} couleur={piece.couleur}/>}
     </div>);

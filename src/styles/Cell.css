@@ -7,8 +7,11 @@ div.chess-cell {
 div.black {
     background-color: #d18b47;
 }
+div.selected {
+    background-color: red;
+}
 img {
     width: 60px;
     height: 60px;
-  }
+}
   
