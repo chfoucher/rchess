@@ -10,7 +10,7 @@ const CHEVAL = 5;
 const REINE = 6;
 const NOIR = "noir";
 const BLANC = "blanc";
-function initBoard() {
+export function initBoard() {
     const board = [];
     let currentBlack = false;
     for (var r = 0; r < 8; r++) {
@@ -24,7 +24,7 @@ function initBoard() {
     return board;
 }
 
-function initBoardLayout(board) {
+export function initBoardLayout(board) {
   const layout = [TOUR, CHEVAL, FOU, REINE, ROI, FOU, CHEVAL, TOUR];
   const newBoard = [ ...board ];
   for (var c = 0; c < 8; c++) {
