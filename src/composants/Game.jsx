@@ -60,11 +60,12 @@ function Game() {
     }
   }
 
-function Row({brow: row}) {
-return (<tr>{ row.map((cell, index) => (
-    <td key={`c-${index}`} onClick={() => onClick(cell)}><Cell black={cell.black} piece={cell.piece} r={cell.r} c={cell.c} selected={cell.selected}/></td>
-))}</tr>);
-}
+  function Row({brow: row}) {
+  return (<tr>{ row.map((cell, index) => (
+      <td key={`c-${index}`} onClick={() => onClick(cell)}><Cell black={cell.black} piece={cell.piece} r={cell.r} c={cell.c} selected={cell.selected}/></td>
+  ))}</tr>);
+  }
+
   return (<div>
         <table><tbody>
         { board.map((row, index) => (
